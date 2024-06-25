@@ -17,21 +17,21 @@ const prisma = new client_1.PrismaClient();
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const port = 4000;
-app.post('/post', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password, firstName, lastName } = req.body;
-    const post = yield prisma.user.create({
-        data: {
-            email,
-            password,
-            firstName,
-            lastName
-        },
-    });
-    res.json(post);
-}));
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-});
+// app.post('/post', async (req, res) => {
+//     const { email, password, firstName, lastName } = req.body
+//     const post = await prisma.user.create({
+//         data: {
+//             email,
+//             password,
+//             firstName,
+//             lastName
+//         },
+//     })
+//     res.json(post)
+// })
+// app.listen(port, () => {
+//     console.log(`Example app listening on port ${port}`)
+// })
 // async function insertUser(username: string, password: string, firstName: string, lastName: string){
 //     const res = await prisma.user.create({
 //         data:{
@@ -43,6 +43,19 @@ app.listen(port, () => {
 //     })
 // }
 // insertUser("admin 1", "password", "rookie", "singh");
+function insertTodo(title, description) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield prisma.todo.create({
+            data: {
+                title,
+                description,
+                userId: 1
+            }
+        });
+        console.log(res);
+    });
+}
+insertTodo("go gym", "gym at 5pm");
 // interface updateParams{
 //     firstName: string,
 //     lastName: string
