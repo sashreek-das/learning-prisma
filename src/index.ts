@@ -1,7 +1,29 @@
 import { PrismaClient } from '@prisma/client'
-import { get } from 'http';
+
 const prisma = new PrismaClient()
 
+import express from 'express'
+const app = express()
+
+const port = 4000
+
+app.post('/post', async (req, res) => {
+    const { email, password, firstName, lastName } = req.body
+
+    const post = await prisma.user.create({
+        data: {
+            email,
+            password,
+            firstName,
+            lastName
+        },
+    })
+    res.json(post)
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
 // async function insertUser(username: string, password: string, firstName: string, lastName: string){
 //     const res = await prisma.user.create({
 //         data:{
@@ -53,13 +75,13 @@ const prisma = new PrismaClient()
 // getUser("admin 1");
 
 
-async function delUser(username: string){
-    const res = await prisma.user.delete({
-        where:{
-            email: username
-        },
-    })
-    // console.log(res);
-}
+// async function delUser(username: string){
+//     const res = await prisma.user.delete({
+//         where:{
+//             email: username
+//         },
+//     })
+//     // console.log(res);
+// }
 
-delUser("admin 1")
+// delUser("admin 1")
